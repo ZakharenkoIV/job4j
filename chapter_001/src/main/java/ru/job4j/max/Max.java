@@ -7,7 +7,6 @@ public class Max {
     }
 
     public int maxOfTheThree(int first, int second, int third) {
-        int intermediate = max(first, second);
-        return max(intermediate, third);
+        return max(max(first, second), third);
     }
 }
