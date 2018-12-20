@@ -28,7 +28,7 @@ public class MaxTest {
     }
 
     @Test
-    public void whenOllEquels() {
+    public void whenOllEquals() {
         Max maxim = new Max();
         int result = maxim.maxOfTheThree(0, 0, 0);
         assertThat(result, is(0));
