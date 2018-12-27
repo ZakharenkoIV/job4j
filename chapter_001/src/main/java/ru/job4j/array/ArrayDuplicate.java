@@ -17,10 +17,7 @@ public class ArrayDuplicate {
                 }
             }
         }
-        if (del > 0) {
-            array = Arrays.copyOf(array, array.length - del);
-        }
-        return array;
+        return Arrays.copyOf(array, array.length - del);
     }
 }
 
