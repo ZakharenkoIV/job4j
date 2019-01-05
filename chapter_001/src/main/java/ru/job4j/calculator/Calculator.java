@@ -1,19 +1,21 @@
 package ru.job4j.calculator;
 
 /**
- *Class Calculator for calculation addition, subtraction, division or multiplication.
- *@author Ilya Zakharenko (ZakharenkoIV@yandex.ru)
- *@since 18.12.2018
+ * Class Calculator for calculation addition, subtraction, division or multiplication.
+ *
+ * @author Ilya Zakharenko (ZakharenkoIV@yandex.ru)
+ * @since 18.12.2018
  */
 public class Calculator {
     /**
-     *  Result of arithmetic action.
+     * Result of arithmetic action.
      */
     private double result;
 
     /**
      * Method add.
-     * @param first - first number.
+     *
+     * @param first  - first number.
      * @param second - second number.
      */
     public void add(double first, double second) {
@@ -22,7 +24,8 @@ public class Calculator {
 
     /**
      * Method subtract.
-     * @param first - first number.
+     *
+     * @param first  - first number.
      * @param second - second number.
      */
     public void subtract(double first, double second) {
@@ -31,7 +34,8 @@ public class Calculator {
 
     /**
      * Method div.
-     * @param first - first number.
+     *
+     * @param first  - first number.
      * @param second - second number.
      */
     public void div(double first, double second) {
@@ -40,7 +44,8 @@ public class Calculator {
 
     /**
      * Method multiple.
-     * @param first - first number.
+     *
+     * @param first  - first number.
      * @param second - second number.
      */
     public void multiple(double first, double second) {
@@ -49,6 +54,7 @@ public class Calculator {
 
     /**
      * Method getResult.
+     *
      * @return result.
      */
     public double getResult() {
