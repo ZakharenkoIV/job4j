@@ -6,9 +6,8 @@ public class Student extends Profession {
 
     public Lesson lesson;
 
-    public Student(String name, int lesson){
+    public Student(String name, int lesson) {
         this.setName(name);
         this.lesson.lesson = lesson;
     }
-
 }

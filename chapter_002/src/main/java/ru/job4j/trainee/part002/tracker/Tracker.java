@@ -1,6 +1,5 @@
 package ru.job4j.trainee.part002.tracker;
 
-import java.time.LocalTime;
 import java.util.Arrays;
 
 public class Tracker {
@@ -12,16 +11,17 @@ public class Tracker {
         if (items[items.length - 1] != null) {
             items = Arrays.copyOf(items, items.length + 1);
         }
-        for (int i = 0; i < items.length; i++)
+        for (int i = 0; i < items.length; i++) {
             if (items[i] == null) {
                 items[i] = item;
                 break;
             }
+        }
         return item;
     }
 
     private String generateId() {
-        return Integer.toString(LocalTime.now().getNano());
+        return Long.toString(System.nanoTime());
     }
 
     public boolean replace(String id, Item item) {
