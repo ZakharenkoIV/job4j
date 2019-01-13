@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class Tracker {
     private Item[] items = new Item[100];
 
-
     public Item add(Item item) {
         item.setId(this.generateId());
         if (items[items.length - 1] != null) {
@@ -38,6 +37,7 @@ public class Tracker {
 
     public boolean delete(String id) {
         boolean success = false;
+        items = findAll();
         Item[] it = items;
         for (int index = 0; index < items.length; index++) {
             if (items[index].getId().equals(id)) {
@@ -74,9 +74,9 @@ public class Tracker {
 
     public Item findById(String id) {
         Item item = null;
-        for (Item item1 : items) {
-            if (item1.getId().equals(id)) {
-                item = item1;
+        for (int i = 0; i < findAll().length; i++) {
+            if (items[i].getId().equals(id)) {
+                item = items[i];
                 break;
             }
         }

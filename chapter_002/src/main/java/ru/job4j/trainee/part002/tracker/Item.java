@@ -7,6 +7,11 @@ public class Item {
     private Long created;
     private String[] comments;
 
+    public Item(String name, String desc) {
+        this.name = name;
+        this.desc = desc;
+    }
+
     public Item(String name, String desc, Long created) {
         this.name = name;
         this.desc = desc;
@@ -51,5 +56,10 @@ public class Item {
 
     public void setComments(String[] comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "\n" + "Имя заявки: " + getName() + "\n" + "Описание: " + getDesc() + "\n" + "Коментарии: " + getComments() + "\n";
     }
 }
