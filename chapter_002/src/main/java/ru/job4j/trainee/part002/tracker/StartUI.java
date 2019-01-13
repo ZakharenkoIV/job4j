@@ -87,7 +87,6 @@ public class StartUI {
         }
     }
 
-    //OK
     private void deleteItems() {
         System.out.println("------------ Удаление заявки ------------");
         String id = this.input.ask("Введите ID заявки : ");
@@ -113,7 +112,7 @@ public class StartUI {
         System.out.println("------------ Поиск заявок по имени ------------");
         String name = this.input.ask("Введите имя заявки : ");
         Item[] items = this.tracker.findByName(name);
-        if (Arrays.toString(items).equals("[]")) {
+        if (items.length == 0) {
             System.out.println("------------ Заявок с таким именем не найдено ------------");
         } else {
             System.out.println(Arrays.toString(items));
