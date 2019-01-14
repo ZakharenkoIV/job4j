@@ -43,8 +43,8 @@ public class Tracker {
             if (items[index].getId().equals(id)) {
                 items[index] = null;
                 success = true;
-                System.arraycopy(items, index + 1, it, index, items.length - index - 1);
-                items = it;
+                System.arraycopy(items, index + 1, it, index, items.length - 1 - index);
+                items = Arrays.copyOf(it, it.length - 1);
                 break;
             }
         }
