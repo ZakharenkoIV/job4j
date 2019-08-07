@@ -1,36 +1,55 @@
 package ru.job4j.trainee.part002.tracker;
 
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
+    private static PrintStream stdout = System.out;
+    private static ByteArrayOutputStream out = new ByteArrayOutputStream();
+    Tracker tracker = new Tracker();
+    Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
+    String menu = "Меню"
+            + "\r\n" + "(0) Добавить новую заявку"
+            + "\r\n" + "(1) Показать все заявки"
+            + "\r\n" + "(2) Редактировать заявку"
+            + "\r\n" + "(3) Удалить заявку"
+            + "\r\n" + "(4) Найти заявку по ID"
+            + "\r\n" + "(5) Найти заявку по имени"
+            + "\r\n" + "(6) Выход";
+
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(out));
+    }
+
+    @After
+    public void backOutput() {
+        System.setOut(stdout);
+    }
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
-    }
-
-    @Test
-    public void whenUpdateThenTrackerHasUpdatedValue() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("test name", "desc"));
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
-        new StartUI(input, tracker).init();
-        assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
-    }
-
-    @Test
-    public void whenUserDeleteOneItemThenTrackerHasOneItemWithSameName() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("test name1", "desc1"));
-        tracker.add(new Item("test name2", "desc2"));
-        Input input = new StubInput(new String[]{"3", item.getId(), "6"});
-        new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name2"));
+        assertThat(new String(out.toByteArray()), is(new StringBuilder()
+                        .append(menu)
+//                        .append("\r\n" + "Ввеедите пункт меню : ")
+                        .append("\r\n" + "------------ Добавление новой заявки ------------")
+//                        .append("\r\n" + "Введите имя заявки : ")
+//                        .append("\r\n" + "Введите описание заявки : ")
+                        .append("\r\n" + "------------ ID новой заявки : " + StartUI.idOfLastItemAdded + "------------")
+                        .append("\r\n")
+                        .append(menu)
+//                        .append("\r\n" + "Ввеедите пункт меню : ")
+                        .append(System.lineSeparator())
+                        .toString()
+                )
+        );
     }
 }
