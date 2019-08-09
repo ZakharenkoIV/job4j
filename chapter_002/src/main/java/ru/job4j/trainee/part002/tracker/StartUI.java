@@ -13,7 +13,6 @@ public class StartUI {
     private static final String EXIT = "6";
     private final Tracker tracker;
     private final Input input;
-    public static String idOfLastItemAdded;
 
     public StartUI(Input input, Tracker tracker) {
         this.input = input;
@@ -60,8 +59,7 @@ public class StartUI {
         String desc = this.input.ask("Введите описание заявки : ");
         Item item = new Item(name, desc);
         item = this.tracker.add(item);
-        idOfLastItemAdded = item.getId();
-        System.out.println("------------ ID новой заявки : " + idOfLastItemAdded + "------------");
+        System.out.println("------------ ID новой заявки : " + item.getId() + "------------");
     }
 
     private void showAllItems() {
