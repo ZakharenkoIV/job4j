@@ -20,26 +20,34 @@ public class StartUI {
     }
 
     public void init() {
-        boolean exit = false;
-        while (!exit) {
-            this.showMenu();
-            String answer = this.input.ask("Ввеедите пункт меню : ");
-            if (ADD.equals(answer)) {
-                this.createItem();
-            } else if (SHOW.equals(answer)) {
-                this.showAllItems();
-            } else if (EDIT.equals(answer)) {
-                this.editItems();
-            } else if (DELETE.equals(answer)) {
-                this.deleteItems();
-            } else if (FIND_BY_ID.equals(answer)) {
-                this.findById();
-            } else if (FIND_BY_NAME.equals(answer)) {
-                this.findByName();
-            } else if (EXIT.equals(answer)) {
-                exit = true;
-            }
-        }
+//        boolean exit = false;
+//        while (!exit) {
+//            this.showMenu();
+//            String answer = this.input.ask("Ввеедите пункт меню : ");
+//            if (ADD.equals(answer)) {
+//                this.createItem();
+//            } else if (SHOW.equals(answer)) {
+//                this.showAllItems();
+//            } else if (EDIT.equals(answer)) {
+//                this.editItems();
+//            } else if (DELETE.equals(answer)) {
+//                this.deleteItems();
+//            } else if (FIND_BY_ID.equals(answer)) {
+//                this.findById();
+//            } else if (FIND_BY_NAME.equals(answer)) {
+//                this.findByName();
+//            } else if (EXIT.equals(answer)) {
+//                exit = true;
+//            }
+//        }
+        Tracker tracker = new Tracker();
+        MenuTracker menu = new MenuTracker(this.tracker, this.input);
+        menu.fillAction();
+        do {
+            menu.show();
+            int key = Integer.valueOf(input.ask("Выберите пункт меню"));
+            menu.select(key);
+        } while (!"да".equals(this.input.ask("Выход? (да): ")));
     }
 
     private void showMenu() {
