@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class Tracker {
     private Item[] items = new Item[100];
+    public boolean exitProgram = true;
 
     public Item add(Item item) {
         item.setId(this.generateId());
