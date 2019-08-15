@@ -4,7 +4,15 @@ import java.util.Arrays;
 
 public class Tracker {
     private Item[] items = new Item[100];
-    public boolean exitProgram = true;
+    private boolean exitProgram = true;
+
+    public boolean getExitProgram() {
+        return exitProgram;
+    }
+
+    public void setExitProgram(boolean exitProgram) {
+        this.exitProgram = exitProgram;
+    }
 
     public Item add(Item item) {
         item.setId(this.generateId());

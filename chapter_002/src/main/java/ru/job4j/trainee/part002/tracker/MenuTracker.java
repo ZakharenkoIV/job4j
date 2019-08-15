@@ -166,7 +166,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            tracker.exitProgram = false;
+            tracker.setExitProgram(false);
         }
 
         @Override

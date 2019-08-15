@@ -13,7 +13,7 @@ public class StartUI {
     public void init() {
         MenuTracker menu = new MenuTracker(this.tracker, this.input);
         menu.fillAction();
-        while (tracker.exitProgram) {
+        while (tracker.getExitProgram()) {
             menu.show();
             int key = Integer.valueOf(input.ask("Ввеедите пункт меню : "));
             menu.select(key);
