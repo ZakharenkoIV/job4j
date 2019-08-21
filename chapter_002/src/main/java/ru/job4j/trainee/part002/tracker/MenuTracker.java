@@ -5,11 +5,20 @@ import java.util.Arrays;
 public class MenuTracker {
     private Tracker tracker;
     private Input input;
-    private UserAction[] action = new UserAction[7];
+    private int range = 7;
+    private UserAction[] action = new UserAction[range];
 
     public MenuTracker(Tracker tracker, Input input) {
         this.tracker = tracker;
         this.input = input;
+    }
+
+    public int[] rangeMenu() {
+        int[] num = new int[range];
+        for (int i = 0; i < range; i++) {
+            num[i] = i;
+        }
+        return num;
     }
 
     public void fillAction() {
