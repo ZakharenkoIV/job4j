@@ -1,7 +1,5 @@
 package ru.job4j.trainee.part002.tracker;
 
-import java.util.Scanner;
-
 public class ValidateInput extends ConsoleInput {
 
     @Override
@@ -12,8 +10,10 @@ public class ValidateInput extends ConsoleInput {
             try {
                 value = super.ask(question, range);
                 invalid = false;
-            } catch (MenuOutException | NumberFormatException exc) {
+            } catch (MenuOutException exc) {
                 System.out.println("Такого пункта не существует.");
+            } catch (NumberFormatException exc) {
+                System.out.println("Введите номер пункта меню");
             }
         } while (invalid);
         return value;
