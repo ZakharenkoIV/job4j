@@ -1,6 +1,6 @@
 package ru.job4j.trainee.part002.tracker;
 
-public class StubInput extends ValidateInput {
+public class StubInput extends ConsoleInput {
     private final String[] answers;
     private int position = 0;
 
