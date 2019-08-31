@@ -26,7 +26,7 @@ public class ValidateInputTest {
     }
 
     @Test
-    public void whenInvalidInput() {
+    public void whenLetterInvalidInput() {
         ValidateInput input = new ValidateInput(
                 new StubInput(new String[]{"в", "1"})
         );
@@ -36,6 +36,22 @@ public class ValidateInputTest {
                 is(
                         String.format("Ввеедите пункт меню : %n"
                                 + "Введите номер пункта меню%n"
+                                + "Ввеедите пункт меню : %n")
+                )
+        );
+    }
+
+    @Test
+    public void whenDigitInvalidInput() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[]{"4", "1"})
+        );
+        input.ask("Ввеедите пункт меню : ", new int[]{1});
+        assertThat(
+                this.mem.toString(),
+                is(
+                        String.format("Ввеедите пункт меню : %n"
+                                + "Такого пункта не существует.%n"
                                 + "Ввеедите пункт меню : %n")
                 )
         );
