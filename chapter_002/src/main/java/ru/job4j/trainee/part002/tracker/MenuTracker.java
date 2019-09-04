@@ -6,8 +6,9 @@ public class MenuTracker {
     private Tracker tracker;
     private Input input;
     private int range = 7;
+    //Композиция
     private UserAction[] action = new UserAction[range];
-
+    //Агрегация
     public MenuTracker(Tracker tracker, Input input) {
         this.tracker = tracker;
         this.input = input;
@@ -42,7 +43,7 @@ public class MenuTracker {
         }
     }
 
-
+    //Наследование
     private class AddItem extends BaseAction {
 
         protected AddItem(int key, String name) {
@@ -60,6 +61,7 @@ public class MenuTracker {
         }
     }
 
+    //Наследование
     private class ShowAllItems extends BaseAction {
 
         protected ShowAllItems(int key, String name) {
@@ -79,6 +81,7 @@ public class MenuTracker {
         }
     }
 
+    //Наследование
     private class EditItems extends BaseAction {
 
         protected EditItems(int key, String name) {
@@ -95,6 +98,7 @@ public class MenuTracker {
         }
     }
 
+    //Наследование
     private class DeleteItems extends BaseAction {
 
         protected DeleteItems(int key, String name) {
@@ -108,6 +112,7 @@ public class MenuTracker {
         }
     }
 
+    //Наследование
     private class FindById extends BaseAction {
 
         protected FindById(int key, String name) {
@@ -121,6 +126,7 @@ public class MenuTracker {
         }
     }
 
+    //Наследование
     private class FindByName extends BaseAction {
 
         protected FindByName(int key, String name) {
@@ -134,6 +140,7 @@ public class MenuTracker {
         }
     }
 
+    //Наследование
     private class Exit extends BaseAction {
 
         protected Exit(int key, String name) {

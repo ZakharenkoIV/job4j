@@ -6,7 +6,7 @@ public class Item {
     private String desc;
     private Long created;
     private String[] comments;
-
+    //Агрегация классов обёрток
     public Item(String name, String desc) {
         this.name = name;
         this.desc = desc;

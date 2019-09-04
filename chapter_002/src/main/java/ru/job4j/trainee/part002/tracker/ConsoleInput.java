@@ -2,8 +2,10 @@ package ru.job4j.trainee.part002.tracker;
 
 import java.util.Scanner;
 
+//Композиция
 public class ConsoleInput implements Input {
 
+    //Композиция
     private Scanner scanner = new Scanner(System.in);
 
     @Override

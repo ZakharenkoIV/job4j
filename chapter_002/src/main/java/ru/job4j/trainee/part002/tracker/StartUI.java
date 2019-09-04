@@ -2,6 +2,7 @@ package ru.job4j.trainee.part002.tracker;
 
 public class StartUI {
 
+    //Агрегация
     private final Tracker tracker;
     private final Input input;
 
@@ -11,6 +12,7 @@ public class StartUI {
     }
 
     public void init() {
+        //Композиция
         MenuTracker menu = new MenuTracker(this.tracker, this.input);
         menu.fillAction();
         while (tracker.getExitProgram()) {

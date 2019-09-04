@@ -1,8 +1,8 @@
 package ru.job4j.trainee.part002.tracker;
-
+//Композиция
 public class ValidateInput implements Input {
     private final Input input;
-
+    //Агрегация
     public ValidateInput(Input input) {
         this.input = input;
     }
