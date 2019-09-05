@@ -2,7 +2,7 @@ package ru.job4j.trainee.part002.tracker;
 
 import java.util.Arrays;
 
-public class Tracker {
+class Tracker {
     //Агрегация
     private Item[] items = new Item[100];
     private boolean exitProgram = true;
