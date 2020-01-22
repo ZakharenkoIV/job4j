@@ -28,4 +28,9 @@ public class Person {
     public String getAddress() {
         return address;
     }
+
+    @Override
+    public String toString() {
+        return this.name + ", " + this.surname + ", " + this.phone + ", " + this.address;
+    }
 }

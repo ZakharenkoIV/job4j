@@ -18,8 +18,7 @@ public class PhoneDictionary {
     public ArrayList<Person> find(String key) {
         ArrayList<Person> result = new ArrayList<>();
         for (Person person : persons) {
-            String buff = person.getName() + " " + person.getSurname() + " " + person.getPhone() + " " + person.getAddress();
-            if (buff.contains(key)) {
+            if (person.toString().contains(key)) {
                 result.add(person);
             }
         }
