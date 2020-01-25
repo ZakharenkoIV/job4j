@@ -6,6 +6,7 @@ import org.junit.After;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
@@ -47,7 +48,7 @@ public class StartUITest {
                         .append(menu)
                         .append("\r\n" + "Ввеедите пункт меню : ")
                         .append("\r\n" + "------------ Все заявки ------------")
-                        .append("\r\n" + Arrays.toString(tracker.findAll()))
+                        .append("\r\n" + (tracker.findAll().toString()))
                         .append("\r\n")
                         .append(menu)
                         .append("\r\n" + "Ввеедите пункт меню : ")
@@ -78,13 +79,13 @@ public class StartUITest {
     @Test
     public void whenUserFindItemsByName() {
         new StartUI(input3, tracker).init();
-        Item[] items = this.tracker.findByName(item3.getName());
+        ArrayList<Item> items = this.tracker.findByName(item3.getName());
         assertThat(new String(out.toByteArray()), is(new StringBuilder()
                         .append(menu)
                         .append("\r\n" + "Ввеедите пункт меню : ")
                         .append("\r\n" + "------------ Поиск заявок по имени ------------")
                         .append("\r\n" + "Введите имя заявки : ")
-                        .append("\r\n" + Arrays.toString(items))
+                        .append("\r\n" + items.toString())
                         .append("\r\n")
                         .append(menu)
                         .append("\r\n" + "Ввеедите пункт меню : ")

@@ -1,5 +1,7 @@
 package ru.job4j.trainee.part002.tracker;
 
+import java.util.ArrayList;
+
 public enum TrackerSingleEnum {
     INSTANCE;
 
@@ -25,11 +27,11 @@ public enum TrackerSingleEnum {
         return tracker.delete(id);
     }
 
-    public Item[] findAll() {
+    public ArrayList<Item> findAll() {
         return tracker.findAll();
     }
 
-    public Item[] findByName(String key) {
+    public ArrayList<Item> findByName(String key) {
         return tracker.findByName(key);
     }
 

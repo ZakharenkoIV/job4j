@@ -3,6 +3,8 @@ package ru.job4j.trainee.part002.tracker;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -23,7 +25,7 @@ public class TrackerTest {
 
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
 
     @Test
@@ -37,20 +39,26 @@ public class TrackerTest {
     @Test
     public void whenDeleteItemThenReturnNewListItems() {
         tracker.delete(item3.getId());
-        Item[] expected = new Item[]{item, item2};
+        ArrayList<Item> expected = new ArrayList<>();
+        expected.add(item);
+        expected.add(item2);
         assertThat(tracker.findAll(), is(expected));
     }
 
     @Test
     public void whenAddThenReturnOll() {
-        Item[] expected = new Item[]{item, item2, item3};
+        ArrayList<Item> expected = new ArrayList<>();
+        expected.add(item);
+        expected.add(item2);
+        expected.add(item3);
         assertThat(tracker.findAll(), is(expected));
     }
 
     @Test
     public void whenFindByNameThenReturnItemWithThisName() {
-        Item[] expect = new Item[]{item3};
-        assertThat(tracker.findByName("test3"), is(expect));
+        ArrayList<Item> expected = new ArrayList<>();
+        expected.add(item3);
+        assertThat(tracker.findByName("test3"), is(expected));
     }
 
     @Test

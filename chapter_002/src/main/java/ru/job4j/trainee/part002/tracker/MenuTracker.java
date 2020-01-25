@@ -1,5 +1,6 @@
 package ru.job4j.trainee.part002.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MenuTracker {
@@ -71,7 +72,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Все заявки ------------");
-            System.out.println(Arrays.toString(tracker.findAll()));
+            System.out.println(tracker.findAll().toString());
 
         }
 
@@ -136,7 +137,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявок по имени ------------");
-            System.out.println(Arrays.toString(tracker.findByName(input.ask("Введите имя заявки : "))));
+            System.out.println(tracker.findByName(input.ask("Введите имя заявки : ")).toString());
         }
     }
 
