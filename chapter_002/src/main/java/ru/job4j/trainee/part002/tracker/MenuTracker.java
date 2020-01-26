@@ -93,8 +93,8 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Редактирование заявки ------------");
             String id = input.ask("Введите ID заявки : ");
-            tracker.findById(id).setName(input.ask("Введите новое имя заявки : "));
-            tracker.findById(id).setDesc(input.ask("Введите новое описание заявки : "));
+            Item item = new Item(input.ask("Введите новое имя заявки : "), input.ask("Введите новое описание заявки : "));
+            tracker.replace(id, item);
             System.out.println("------------ Заявка отредактирована ------------");
         }
     }
