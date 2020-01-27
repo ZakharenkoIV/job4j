@@ -44,18 +44,21 @@ public class StartUITest {
     @Test
     public void whenUserShowAllItems() {
         new StartUI(input1, tracker).init();
-        assertThat(new String(out.toByteArray()), is(new StringBuilder()
-                        .append(menu)
-                        .append("\r\n" + "Ввеедите пункт меню : ")
-                        .append("\r\n" + "------------ Все заявки ------------")
-                        .append("\r\n" + (tracker.findAll().toString()))
-                        .append("\r\n")
-                        .append(menu)
-                        .append("\r\n" + "Ввеедите пункт меню : ")
-                        .append(System.lineSeparator())
-                        .toString()
-                )
-        );
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(menu)
+                .append("\r\n" + "Ввеедите пункт меню : ")
+                .append("\r\n" + "------------ Все заявки ------------");
+        for (Item item : tracker.findAll()) {
+            stringBuilder.append("\r\n" + item.toString());
+        }
+        stringBuilder
+                .append("\r\n")
+                .append(menu)
+                .append("\r\n" + "Ввеедите пункт меню : ")
+                .append(System.lineSeparator());
+
+        assertThat(new String(out.toByteArray()), is(stringBuilder.toString()));
     }
 
     @Test
@@ -80,18 +83,20 @@ public class StartUITest {
     public void whenUserFindItemsByName() {
         new StartUI(input3, tracker).init();
         ArrayList<Item> items = this.tracker.findByName(item3.getName());
-        assertThat(new String(out.toByteArray()), is(new StringBuilder()
-                        .append(menu)
-                        .append("\r\n" + "Ввеедите пункт меню : ")
-                        .append("\r\n" + "------------ Поиск заявок по имени ------------")
-                        .append("\r\n" + "Введите имя заявки : ")
-                        .append("\r\n" + items.toString())
-                        .append("\r\n")
-                        .append(menu)
-                        .append("\r\n" + "Ввеедите пункт меню : ")
-                        .append(System.lineSeparator())
-                        .toString()
-                )
-        );
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(menu)
+                .append("\r\n" + "Ввеедите пункт меню : ")
+                .append("\r\n" + "------------ Поиск заявок по имени ------------")
+                .append("\r\n" + "Введите имя заявки : ");
+        for (Item item : tracker.findByName(item3.getName())) {
+            stringBuilder.append("\r\n" + item.toString());
+        }
+        stringBuilder
+                .append("\r\n")
+                .append(menu)
+                .append("\r\n" + "Ввеедите пункт меню : ")
+                .append(System.lineSeparator());
+        assertThat(new String(out.toByteArray()), is(stringBuilder.toString()));
     }
 }

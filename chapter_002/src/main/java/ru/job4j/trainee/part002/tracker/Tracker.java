@@ -27,22 +27,28 @@ class Tracker {
 
     public boolean replace(String id, Item item) {
         boolean success = false;
-        for (int index = 0; index < listItems.size(); index++) {
-            if (listItems.get(index).getId().equals(id)) {
-                item.setId(id);
-                listItems.set(index, item);
-                success = true;
-                break;
-            }
+        listItems.remove(this.findById(id));
+        item.setId(id);
+        listItems.add(item);
+        if (this.findById(id).equals(item)) {
+            success = true;
+            System.out.println("------------ Заявка отредактирована ------------");
+        } else {
+            System.out.println("------------ Заявка не отредактирована ------------");
         }
         return success;
     }
 
     public boolean delete(String id) {
         boolean success = false;
-        for (int index = 0; index < listItems.size(); index++) {
-            if (listItems.get(index).getId().equals(id)) {
-                listItems.remove(index);
+        Item item = this.findById(id);
+        if (item != null) {
+            listItems.remove(item);
+            if (this.findById(id) != item) {
+                success = true;
+                System.out.println("------------ Заявка удалена ------------");
+            } else {
+                System.out.println("------------ Заявка не удалена ------------");
             }
         }
         return success;
@@ -68,6 +74,9 @@ class Tracker {
             if (item.getId().equals(id)) {
                 result = item;
             }
+        }
+        if (result == null) {
+            System.out.println("------------ Заявка не найдена ------------");
         }
         return result;
     }

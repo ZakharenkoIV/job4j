@@ -1,15 +1,11 @@
 package ru.job4j.trainee.part002.tracker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class MenuTracker {
     private Tracker tracker;
     private Input input;
     private int range = 7;
-    //Композиция
     private UserAction[] action = new UserAction[range];
-    //Агрегация
+
     public MenuTracker(Tracker tracker, Input input) {
         this.tracker = tracker;
         this.input = input;
@@ -44,7 +40,6 @@ public class MenuTracker {
         }
     }
 
-    //Наследование
     private class AddItem extends BaseAction {
 
         protected AddItem(int key, String name) {
@@ -62,7 +57,6 @@ public class MenuTracker {
         }
     }
 
-    //Наследование
     private class ShowAllItems extends BaseAction {
 
         protected ShowAllItems(int key, String name) {
@@ -72,8 +66,9 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Все заявки ------------");
-            System.out.println(tracker.findAll().toString());
-
+            for (Item item : tracker.findAll()) {
+                System.out.println(item.toString());
+            }
         }
 
         @Override
@@ -82,7 +77,6 @@ public class MenuTracker {
         }
     }
 
-    //Наследование
     private class EditItems extends BaseAction {
 
         protected EditItems(int key, String name) {
@@ -93,13 +87,13 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Редактирование заявки ------------");
             String id = input.ask("Введите ID заявки : ");
-            Item item = new Item(input.ask("Введите новое имя заявки : "), input.ask("Введите новое описание заявки : "));
-            tracker.replace(id, item);
-            System.out.println("------------ Заявка отредактирована ------------");
+            if (tracker.findById(id) != null) {
+                Item item = new Item(input.ask("Введите новое имя заявки : "), input.ask("Введите новое описание заявки : "));
+                tracker.replace(id, item);
+            }
         }
     }
 
-    //Наследование
     private class DeleteItems extends BaseAction {
 
         protected DeleteItems(int key, String name) {
@@ -110,10 +104,10 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Удаление заявки ------------");
             tracker.delete(input.ask("Введите ID заявки : "));
+
         }
     }
 
-    //Наследование
     private class FindById extends BaseAction {
 
         protected FindById(int key, String name) {
@@ -124,10 +118,10 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявки по ID ------------");
             System.out.println("------------ " + tracker.findById(input.ask("Введите ID заявки : ")) + "------------");
+
         }
     }
 
-    //Наследование
     private class FindByName extends BaseAction {
 
         protected FindByName(int key, String name) {
@@ -137,11 +131,12 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявок по имени ------------");
-            System.out.println(tracker.findByName(input.ask("Введите имя заявки : ")).toString());
+            for (Item item : tracker.findByName(input.ask("Введите имя заявки : "))) {
+                System.out.println(item.toString());
+            }
         }
     }
 
-    //Наследование
     private class Exit extends BaseAction {
 
         protected Exit(int key, String name) {
