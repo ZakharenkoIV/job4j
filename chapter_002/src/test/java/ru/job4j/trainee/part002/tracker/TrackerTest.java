@@ -15,9 +15,9 @@ public class TrackerTest {
     @Before
     public void loadOutput() {
         tracker = new Tracker();
-        item = new Item("test1", "testDescription", 123L);
-        item2 = new Item("test2", "testDescription", 123L);
-        item3 = new Item("test3", "testDescription", 123L);
+        item = new Item("test1");
+        item2 = new Item("test2");
+        item3 = new Item("test3");
         tracker.add(item);
         tracker.add(item2);
         tracker.add(item3);
@@ -30,7 +30,7 @@ public class TrackerTest {
 
     @Test
     public void whenReplaceNameThenReturnNewName() {
-        Item next = new Item("test4", "testDescription2", 1234L);
+        Item next = new Item("test4");
         next.setId(item.getId());
         tracker.replace(item.getId(), next);
         assertThat(tracker.findById(item.getId()).getName(), is("test4"));

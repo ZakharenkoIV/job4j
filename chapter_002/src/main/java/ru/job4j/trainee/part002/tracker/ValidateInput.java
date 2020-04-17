@@ -1,28 +1,45 @@
 package ru.job4j.trainee.part002.tracker;
-//Композиция
+
 public class ValidateInput implements Input {
     private final Input input;
-    //Агрегация
+
     public ValidateInput(Input input) {
         this.input = input;
     }
 
     @Override
-    public String ask(String question) {
-        return this.input.ask(question);
+    public String askStr(String question) {
+        return input.askStr(question);
     }
 
-    public int ask(String question, int[] range) {
+    @Override
+    public int askInt(String question) {
         boolean invalid = true;
         int value = -1;
         do {
             try {
-                value = this.input.ask(question, range);
+                value = input.askInt(question);
                 invalid = false;
-            } catch (MenuOutException exc) {
-                System.out.println("Такого пункта не существует.");
-            } catch (NumberFormatException exc) {
-                System.out.println("Введите номер пункта меню");
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter validate data again.");
+            }
+        } while (invalid);
+        return value;
+    }
+
+    @Override
+    public int askInt(String question, int max) {
+        boolean invalid = true;
+        int value = -1;
+        do {
+            try {
+                value = input.askInt(question, max);
+                invalid = false;
+            } catch (IllegalStateException moe) {
+                System.out.println(moe.getMessage());
+                System.out.println("Please select key from menu.");
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter validate data again.");
             }
         } while (invalid);
         return value;

@@ -2,83 +2,56 @@ package ru.job4j.trainee.part002.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-class Tracker {
-    private ArrayList<Item> listItems = new ArrayList<>();
-    private boolean exitProgram = true;
-
-    public boolean getExitProgram() {
-        return exitProgram;
-    }
-
-    public void setExitProgram(boolean exitProgram) {
-        this.exitProgram = exitProgram;
-    }
+public class Tracker {
+    private List<Item> itemList = new ArrayList<>();
 
     public Item add(Item item) {
         item.setId(this.generateId());
-        listItems.add(item);
+        itemList.add(item);
         return item;
     }
 
     private String generateId() {
-        return Long.toString(System.nanoTime());
+        return String.valueOf(new Random().nextLong() + System.currentTimeMillis());
     }
 
-    public boolean replace(String id, Item item) {
-        boolean success = false;
-        listItems.remove(this.findById(id));
-        item.setId(id);
-        listItems.add(item);
-        if (this.findById(id).equals(item)) {
-            success = true;
-            System.out.println("------------ Заявка отредактирована ------------");
-        } else {
-            System.out.println("------------ Заявка не отредактирована ------------");
-        }
-        return success;
+    public List<Item> findAll() {
+        return itemList;
     }
 
-    public boolean delete(String id) {
-        boolean success = false;
-        Item item = this.findById(id);
-        if (item != null) {
-            listItems.remove(item);
-            if (this.findById(id) != item) {
-                success = true;
-                System.out.println("------------ Заявка удалена ------------");
-            } else {
-                System.out.println("------------ Заявка не удалена ------------");
+    public List<Item> findByName(String name) {
+        List<Item> foundItems = new ArrayList<>();
+        for (Item item : itemList) {
+            if (item.getName().equals(name)) {
+                foundItems.add(item);
             }
         }
-        return success;
-    }
-
-    public ArrayList<Item> findAll() {
-        return listItems;
-    }
-
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> result = new ArrayList<>();
-        for (Item item : listItems) {
-            if (item.getName().equals(key)) {
-                result.add(item);
-            }
-        }
-        return result;
+        return foundItems;
     }
 
     public Item findById(String id) {
-        Item result = null;
-        for (Item item : listItems) {
+        Item foundItem = null;
+        for (Item item : itemList) {
             if (item.getId().equals(id)) {
-                result = item;
+                foundItem = item;
+                break;
             }
         }
-        if (result == null) {
-            System.out.println("------------ Заявка не найдена ------------");
-        }
-        return result;
+        return foundItem;
+    }
+
+    public boolean replace(String id, Item item) {
+        item.setId(id);
+        int index = itemList.indexOf(this.findById(id));
+        itemList.remove(index);
+        itemList.add(index, item);
+        return true;
+    }
+
+    public boolean delete(String id) {
+        itemList.remove(this.findById(id));
+        return true;
     }
 }
-

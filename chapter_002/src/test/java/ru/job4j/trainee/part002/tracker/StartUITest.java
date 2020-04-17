@@ -1,102 +1,49 @@
 package ru.job4j.trainee.part002.tracker;
 
 import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
+import ru.job4j.trainee.part002.tracker.actions.UserAction;
+import ru.job4j.trainee.part002.tracker.actions.StubAction;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
-    private final PrintStream stdout = System.out;
-    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-    Tracker tracker = new Tracker();
-    Item item1 = tracker.add(new Item("test name1", "desc1"));
-    Item item2 = tracker.add(new Item("test name2", "desc2"));
-    Item item3 = tracker.add(new Item("test name2", "desc3"));
-    Input input1 = new StubInput(new String[]{"1", "6"});
-    Input input2 = new StubInput(new String[]{"4", item2.getId(), "6"});
-    Input input3 = new StubInput(new String[]{"5", item3.getName(), "6"});
-    String menu = "Меню"
-            + "\r\n" + "(0) Добавить новую заявку"
-            + "\r\n" + "(1) Показать все заявки"
-            + "\r\n" + "(2) Редактировать заявку"
-            + "\r\n" + "(3) Удалить заявку"
-            + "\r\n" + "(4) Найти заявку по ID"
-            + "\r\n" + "(5) Найти заявку по имени"
-            + "\r\n" + "(6) Выход";
-
-    @Before
-    public void loadOutput() {
-        System.setOut(new PrintStream(out));
-    }
-
-    @After
-    public void backOutput() {
-        System.setOut(stdout);
-    }
 
     @Test
-    public void whenUserShowAllItems() {
-        new StartUI(input1, tracker).init();
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append(menu)
-                .append("\r\n" + "Ввеедите пункт меню : ")
-                .append("\r\n" + "------------ Все заявки ------------");
-        for (Item item : tracker.findAll()) {
-            stringBuilder.append("\r\n" + item.toString());
-        }
-        stringBuilder
-                .append("\r\n")
-                .append(menu)
-                .append("\r\n" + "Ввеедите пункт меню : ")
-                .append(System.lineSeparator());
-
-        assertThat(new String(out.toByteArray()), is(stringBuilder.toString()));
-    }
-
-    @Test
-    public void whenUserFindItemById() {
-        new StartUI(input2, tracker).init();
-        assertThat(new String(out.toByteArray()), is(new StringBuilder()
-                        .append(menu)
-                        .append("\r\n" + "Ввеедите пункт меню : ")
-                        .append("\r\n" + "------------ Поиск заявки по ID ------------")
-                        .append("\r\n" + "Введите ID заявки : ")
-                        .append("\r\n" + "------------ " + item2 + "------------")
-                        .append("\r\n")
-                        .append(menu)
-                        .append("\r\n" + "Ввеедите пункт меню : ")
-                        .append(System.lineSeparator())
-                        .toString()
-                )
+    public void whenExit() {
+        StubInput input = new StubInput(
+                new String[]{"0"}
         );
+        StubAction action = new StubAction();
+        ArrayList<UserAction> arrayList = new ArrayList<>();
+        arrayList.add(action);
+        new StartUI().init(input, new Tracker(), arrayList);
+        assertThat(action.isCall(), is(true));
     }
 
     @Test
-    public void whenUserFindItemsByName() {
-        new StartUI(input3, tracker).init();
-        ArrayList<Item> items = this.tracker.findByName(item3.getName());
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append(menu)
-                .append("\r\n" + "Ввеедите пункт меню : ")
-                .append("\r\n" + "------------ Поиск заявок по имени ------------")
-                .append("\r\n" + "Введите имя заявки : ");
-        for (Item item : tracker.findByName(item3.getName())) {
-            stringBuilder.append("\r\n" + item.toString());
-        }
-        stringBuilder
-                .append("\r\n")
-                .append(menu)
-                .append("\r\n" + "Ввеедите пункт меню : ")
-                .append(System.lineSeparator());
-        assertThat(new String(out.toByteArray()), is(stringBuilder.toString()));
+    public void whenPrtMenu() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream def = System.out;
+        System.setOut(new PrintStream(out));
+        StubInput input = new StubInput(
+                new String[]{"0"}
+        );
+        StubAction action = new StubAction();
+        List<UserAction> userAction = new ArrayList<>();
+        userAction.add(action);
+        new StartUI().init(input, new Tracker(), userAction);
+        String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                .add("Меню:")
+                .add("0. Обрезанное действие")
+                .toString();
+        assertThat(new String(out.toByteArray()), is(expect));
+        System.setOut(def);
     }
 }

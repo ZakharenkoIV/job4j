@@ -1,59 +1,43 @@
 package ru.job4j.trainee.part002.tracker;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class ValidateInputTest {
-    private final ByteArrayOutputStream mem = new ByteArrayOutputStream();
-    private final PrintStream out = System.out;
 
-    @Before
-    public void loadMem() {
-        System.setOut(new PrintStream(this.mem));
-    }
-
-    @After
-    public void loadSys() {
-        System.setOut(this.out);
+    @Test
+    public void whenInvalidInput() {
+        ByteArrayOutputStream mem = new ByteArrayOutputStream();
+        PrintStream out = System.out;
+        System.setOut(new PrintStream(mem));
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[]{"one", "1"})
+        );
+        input.askInt("Enter");
+        assertThat(
+                mem.toString(),
+                is(String.format("Please enter validate data again.%n"))
+        );
+        System.setOut(out);
     }
 
     @Test
-    public void whenLetterInvalidInput() {
-        ValidateInput input = new ValidateInput(
-                new StubInput(new String[]{"в", "1"})
-        );
-        input.ask("Ввеедите пункт меню : ", new int[]{1});
+    public void whenMoreMaxInput() {
+        ByteArrayOutputStream mem = new ByteArrayOutputStream();
+        PrintStream out = System.out;
+        System.setOut(new PrintStream(mem));
+        Input input = new ValidateInput(
+                new StubInput(new String[]{"5", "1"}));
+        input.askInt("Enter", 3);
         assertThat(
-                this.mem.toString(),
-                is(
-                        String.format("Ввеедите пункт меню : %n"
-                                + "Введите номер пункта меню%n"
-                                + "Ввеедите пункт меню : %n")
-                )
+                mem.toString(),
+                is(String.format("Out of about %s > [0, %s]%s", "5", "3", "\r\nPlease select key from menu.\r\n"))
         );
-    }
-
-    @Test
-    public void whenDigitInvalidInput() {
-        ValidateInput input = new ValidateInput(
-                new StubInput(new String[]{"4", "1"})
-        );
-        input.ask("Ввеедите пункт меню : ", new int[]{1});
-        assertThat(
-                this.mem.toString(),
-                is(
-                        String.format("Ввеедите пункт меню : %n"
-                                + "Такого пункта не существует.%n"
-                                + "Ввеедите пункт меню : %n")
-                )
-        );
+        System.setOut(out);
     }
 }
