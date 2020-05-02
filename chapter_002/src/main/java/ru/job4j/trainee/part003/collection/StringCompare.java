@@ -16,12 +16,10 @@ public class StringCompare implements Comparator<String> {
                 break;
             }
         }
-        if (rsl == 0 && charsLeft.length != charsRight.length && charsLeft.length == i) {
-            rsl = -3;
-        }
-        if (rsl == 0 & charsLeft.length != charsRight.length && charsRight.length == i) {
-            rsl = 3;
+        if (rsl == 0) {
+            rsl = Integer.compare(charsLeft.length, charsRight.length);
         }
         return rsl;
     }
 }
+
