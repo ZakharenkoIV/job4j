@@ -34,9 +34,10 @@ public class ValidateInputTest {
         Input input = new ValidateInput(
                 new StubInput(new String[]{"5", "1"}));
         input.askInt("Enter", 3);
+        String lnSprtr = System.lineSeparator();
         assertThat(
                 mem.toString(),
-                is(String.format("Out of about %s > [0, %s]%s", "5", "3", "\r\nPlease select key from menu.\r\n"))
+                is(String.format("Out of about %s > [0, %s]%s", "5", "3", lnSprtr + "Please select key from menu." + lnSprtr))
         );
         System.setOut(out);
     }
