@@ -11,17 +11,10 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class FunctionsTest {
-    List<Double> diapason(int start, int end, Function<Double, Double> func) {
-        ArrayList<Double> functionCalculationList = new ArrayList<>();
-        for (int i = start; i < end; i++) {
-            functionCalculationList.add(func.apply((double) i));
-        }
-        return functionCalculationList;
-    }
 
     @Test
     public void whenLinearFunctionThenLinearResults() {
-        FunctionsTest function = new FunctionsTest();
+        Functions function = new Functions();
         List<Double> result = function.diapason(5, 8, x -> 2 * x + 1);
         List<Double> expected = Arrays.asList(11D, 13D, 15D);
         assertThat(result, is(expected));
@@ -29,7 +22,7 @@ public class FunctionsTest {
 
     @Test
     public void whenSquareFunctionThenSquareResults() {
-        FunctionsTest function = new FunctionsTest();
+        Functions function = new Functions();
         List<Double> result = function.diapason(2, 5, x -> 2 * Math.pow(x, 2) + 1);
         List<Double> expected = Arrays.asList(9D, 19D, 33D);
         assertThat(result, is(expected));
@@ -37,7 +30,7 @@ public class FunctionsTest {
 
     @Test
     public void whenExponentialFunctionThenExponentialResults() {
-        FunctionsTest function = new FunctionsTest();
+        Functions function = new Functions();
         List<Double> result = function.diapason(1, 4, x -> 2 * Math.pow(2, x) + 1);
         List<Double> expected = Arrays.asList(5D, 9D, 17D);
         assertThat(result, is(expected));
