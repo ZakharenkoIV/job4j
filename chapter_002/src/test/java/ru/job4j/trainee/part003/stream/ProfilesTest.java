@@ -15,11 +15,21 @@ public class ProfilesTest {
     Profiles prof = new Profiles();
 
     @Test
-    public void whenClassDivided70to100() {
+    public void whenProfilesThenAddresses() {
         List<Address> result = prof.collect(profiles);
         List<Address> expected = List.of(
                 new Address("Moscow", "Rusakovsky"),
                 new Address("Kaliningrad", "Frunze")
+        );
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void whenProfilesThenUniqueAddressesSortedByCity() {
+        List<Address> result = prof.collectSortedDistinct(profiles);
+        List<Address> expected = List.of(
+                new Address("Kaliningrad", "Frunze"),
+                new Address("Moscow", "Rusakovsky")
         );
         assertThat(result, is(expected));
     }
