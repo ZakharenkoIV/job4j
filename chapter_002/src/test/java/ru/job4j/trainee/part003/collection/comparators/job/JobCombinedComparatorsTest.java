@@ -27,7 +27,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByDescNameAndDescPriority() {
         Comparator<Job> cmpDescNameDescPriority = new JobDescByName().thenComparing(new JobDescByPriority());
         jobs.sort(cmpDescNameDescPriority);
-        List<Job> actual = Arrays.asList(job4, job5, job2, job3, job1);
+        List<Job> actual = List.of(job4, job5, job2, job3, job1);
         assertThat(jobs, is(actual));
     }
 
@@ -35,7 +35,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByDescNameAndAscPriority() {
         Comparator<Job> cmpDescNameAscPriority = new JobDescByName().thenComparing(new JobAscByPriority());
         jobs.sort(cmpDescNameAscPriority);
-        List<Job> actual = Arrays.asList(job5, job4, job1, job3, job2);
+        List<Job> actual = List.of(job5, job4, job1, job3, job2);
         assertThat(jobs, is(actual));
     }
 
@@ -43,7 +43,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByDescPriorityAndDescName() {
         Comparator<Job> cmpDescPriorityDescName = new JobDescByPriority().thenComparing(new JobDescByName());
         jobs.sort(cmpDescPriorityDescName);
-        List<Job> actual = Arrays.asList(job2, job4, job3, job1, job5);
+        List<Job> actual = List.of(job2, job4, job3, job1, job5);
         assertThat(jobs, is(actual));
     }
 
@@ -51,7 +51,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByDescPriorityAndAscName() {
         Comparator<Job> cmpDescPriorityAscName = new JobDescByPriority().thenComparing(new JobAscByName());
         jobs.sort(cmpDescPriorityAscName);
-        List<Job> actual = Arrays.asList(job2, job4, job3, job1, job5);
+        List<Job> actual = List.of(job2, job4, job3, job1, job5);
         assertThat(jobs, is(actual));
     }
 
@@ -59,7 +59,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByAscPriorityAndDescName() {
         Comparator<Job> cmpAscPriorityDescName = new JobAscByPriority().thenComparing(new JobDescByName());
         jobs.sort(cmpAscPriorityDescName);
-        List<Job> actual = Arrays.asList(job5, job1, job3, job4, job2);
+        List<Job> actual = List.of(job5, job1, job3, job4, job2);
         assertThat(jobs, is(actual));
     }
 
@@ -67,7 +67,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByAscPriorityAndAscName() {
         Comparator<Job> cmpAscPriorityAscName = new JobAscByPriority().thenComparing(new JobAscByName());
         jobs.sort(cmpAscPriorityAscName);
-        List<Job> actual = Arrays.asList(job5, job1, job3, job4, job2);
+        List<Job> actual = List.of(job5, job1, job3, job4, job2);
         assertThat(jobs, is(actual));
     }
 
@@ -75,7 +75,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByAscNameAndDescPriority() {
         Comparator<Job> cmpAscNameDescPriority = new JobAscByName().thenComparing(new JobDescByPriority());
         jobs.sort(cmpAscNameDescPriority);
-        List<Job> actual = Arrays.asList(job2, job3, job1, job4, job5);
+        List<Job> actual = List.of(job2, job3, job1, job4, job5);
         assertThat(jobs, is(actual));
     }
 
@@ -83,7 +83,7 @@ public class JobCombinedComparatorsTest {
     public void whenComparatorByAscNameAndAscPriority() {
         Comparator<Job> cmpAscNameAscPriority = new JobAscByName().thenComparing(new JobAscByPriority());
         jobs.sort(cmpAscNameAscPriority);
-        List<Job> actual = Arrays.asList(job1, job3, job2, job5, job4);
+        List<Job> actual = List.of(job1, job3, job2, job5, job4);
         assertThat(jobs, is(actual));
     }
 }

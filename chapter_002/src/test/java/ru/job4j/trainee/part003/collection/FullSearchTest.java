@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class FullSearchTest {
     @Test
     public void whenExtractNumberGetNotUniqueListThenReturnUniqueHashSetList() {
-        List<Task> tasks = Arrays.asList(
+        List<Task> tasks = List.of(
                 new Task("1", "one"),
                 new Task("2", "two"),
                 new Task("1", "one")
