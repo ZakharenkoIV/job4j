@@ -10,9 +10,9 @@ public class BankService {
     }
 
     public void addAccount(String passport, Account newAccount) {
-        BankUser foundUser = findByPassport(passport);
-        if (foundUser != null) {
-            List<Account> userAccounts = users.get(foundUser);
+        Optional<BankUser> foundUser = Optional.ofNullable(findByPassport(passport));
+        if (foundUser.isPresent()) {
+            List<Account> userAccounts = users.get(foundUser.get());
             if (!userAccounts.contains(newAccount)) {
                 userAccounts.add(newAccount);
             }
@@ -26,10 +26,10 @@ public class BankService {
     }
 
     public Account findByRequisite(String passport, String requisite) {
-        BankUser foundUser = findByPassport(passport);
+        Optional<BankUser> foundUser = Optional.ofNullable(findByPassport(passport));
         Account desiredAccount = null;
-        if (foundUser != null) {
-            desiredAccount = users.get(foundUser).stream()
+        if (foundUser.isPresent()) {
+            desiredAccount = users.get(foundUser.get()).stream()
                     .filter(account1 -> account1.getRequisite().equals(requisite))
                     .findFirst().orElse(null);
         }
@@ -39,11 +39,11 @@ public class BankService {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-        Account srcAccount = findByRequisite(srcPassport, srcRequisite);
-        Account destAccount = findByRequisite(destPassport, destRequisite);
-        if (srcAccount != null && destAccount != null && srcAccount.getBalance() >= amount) {
-            srcAccount.setBalance(srcAccount.getBalance() - amount);
-            destAccount.setBalance(destAccount.getBalance() + amount);
+        Optional<Account> srcAccount = Optional.ofNullable(findByRequisite(srcPassport, srcRequisite));
+        Optional<Account> destAccount = Optional.ofNullable(findByRequisite(destPassport, destRequisite));
+        if (srcAccount.isPresent() && destAccount.isPresent() && srcAccount.get().getBalance() >= amount) {
+            srcAccount.get().setBalance(srcAccount.get().getBalance() - amount);
+            destAccount.get().setBalance(destAccount.get().getBalance() + amount);
             rsl = true;
         }
         return rsl;
