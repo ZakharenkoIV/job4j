@@ -25,10 +25,10 @@ public class StudentFilterTest {
         StudentFilter studentFilter = new StudentFilter();
         List<Student> result = studentFilter.levelOf(inputListStudents, 65);
         List<Student> expected = List.of(
-                new Student(100, "Sokolova"),
-                new Student(90, "Sokolov"),
+                new Student(70, "Popov"),
                 new Student(80, "Popova"),
-                new Student(70, "Popov"));
+                new Student(90, "Sokolov"),
+                new Student(100, "Sokolova"));
         assertThat(result, is(expected));
     }
 }
