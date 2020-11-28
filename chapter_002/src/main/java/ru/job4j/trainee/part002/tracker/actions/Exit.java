@@ -1,7 +1,7 @@
 package ru.job4j.trainee.part002.tracker.actions;
 
 import ru.job4j.trainee.part002.tracker.Input;
-import ru.job4j.trainee.part002.tracker.Tracker;
+import ru.job4j.trainee.part002.tracker.Store;
 
 public class Exit implements UserAction {
     @Override
@@ -10,7 +10,7 @@ public class Exit implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         return false;
     }
 }

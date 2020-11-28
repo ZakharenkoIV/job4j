@@ -1,9 +1,7 @@
 package ru.job4j.trainee.part002.tracker.actions;
 
 import org.junit.Test;
-import ru.job4j.trainee.part002.tracker.Item;
-import ru.job4j.trainee.part002.tracker.StubInput;
-import ru.job4j.trainee.part002.tracker.Tracker;
+import ru.job4j.trainee.part002.tracker.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -20,7 +18,7 @@ public class FindAllItemTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         Item item = new Item("fix bug");
         tracker.add(item);
         FindAllItem act = new FindAllItem();

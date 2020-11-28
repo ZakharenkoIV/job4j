@@ -2,7 +2,9 @@ package ru.job4j.trainee.part002.tracker.actions;
 
 import ru.job4j.trainee.part002.tracker.Input;
 import ru.job4j.trainee.part002.tracker.Item;
-import ru.job4j.trainee.part002.tracker.Tracker;
+import ru.job4j.trainee.part002.tracker.Store;
+
+import java.sql.SQLException;
 
 public class ReplaceItem implements UserAction {
     @Override
@@ -11,20 +13,24 @@ public class ReplaceItem implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute(Input input, Store tracker) {
         String id = input.askStr("Введите ID заявки : ");
-        Item item = tracker.findById(id);
-        if (item == null) {
-            System.out.println("Заявка с таким ID не найдена");
-        } else {
-            String name = input.askStr("Введите имя заявки : ");
-            item.setName(name);
-            boolean replaceSuccess = tracker.replace(id, item);
-            if (replaceSuccess) {
-                System.out.println("Заявка отредактирована");
+        try {
+            Item item = tracker.findById(id);
+            if (item == null) {
+                System.out.println("Заявка с таким ID не найдена");
             } else {
-                System.out.println("Заявка не отредактирована");
+                String name = input.askStr("Введите имя заявки : ");
+                item.setName(name);
+                boolean replaceSuccess = tracker.replace(id, item);
+                if (replaceSuccess) {
+                    System.out.println("Заявка отредактирована");
+                } else {
+                    System.out.println("Заявка не отредактирована");
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return true;
     }

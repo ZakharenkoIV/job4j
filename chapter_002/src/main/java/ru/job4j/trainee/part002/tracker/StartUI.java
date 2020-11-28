@@ -8,7 +8,7 @@ import java.util.List;
 
 public class StartUI {
 
-    public void init(Input input, Tracker tracker, List<UserAction> userActions) {
+    public void init(Input input, Store tracker, List<UserAction> userActions) {
         boolean run = true;
         while (run) {
             this.showMenu(userActions);
@@ -26,9 +26,7 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Input input = new ConsoleInput();
-        Input validate = new ValidateInput(input);
-        Tracker tracker = new Tracker();
+        Input validate = new ValidateInput(new ConsoleInput());
         List<UserAction> userAction = new ArrayList<>();
         userAction.add(new AddItem());
         userAction.add(new DeleteItem());
@@ -37,6 +35,11 @@ public class StartUI {
         userAction.add(new FindByNameItem());
         userAction.add(new ReplaceItem());
         userAction.add(new Exit());
-        new StartUI().init(validate, tracker, userAction);
+        try (Store tracker = new SqlTracker()) {
+            tracker.init();
+            new StartUI().init(validate, tracker, userAction);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
