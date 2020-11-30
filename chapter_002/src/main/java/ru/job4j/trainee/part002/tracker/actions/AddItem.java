@@ -15,10 +15,9 @@ public class AddItem implements UserAction {
     @Override
     public boolean execute(Input input, Store tracker) {
         String name = input.askStr("Введите имя заявки : ");
-        Item item = new Item(name);
         try {
-            tracker.add(item);
-            if (tracker.findById(item.getId()) == null) {
+            Item newItem = tracker.add(new Item(name));
+            if (tracker.findById(newItem.getId()) != null) {
                 System.out.println("Заявка добавлена");
             } else {
                 System.out.println("Заявка не добавлена");
