@@ -49,25 +49,27 @@ public class SqlTracker implements Store {
 
     @Override
     public boolean replace(String id, Item item) {
+        int processedLines = 0;
         try (PreparedStatement ps = con.prepareStatement("update tracker.public.items set name = (?) where id = (?)")) {
             ps.setString(1, item.getName());
             ps.setInt(2, Integer.parseInt(id));
-            ps.executeUpdate();
+            processedLines = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return processedLines != 0;
     }
 
     @Override
     public boolean delete(String id) {
+        int processedLines = 0;
         try (PreparedStatement ps = con.prepareStatement("delete from tracker.public.items where id = (?)")) {
             ps.setInt(1, Integer.parseInt(id));
-            ps.executeUpdate();
+            processedLines = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return processedLines != 0;
     }
 
     @Override

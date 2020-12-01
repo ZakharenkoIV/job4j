@@ -22,7 +22,7 @@ public class DeleteItem implements UserAction {
             System.out.println("Заявка с таким ID не найдена");
         } else {
             tracker.delete(id);
-            if (tracker.findById(id) == null) {
+            if (tracker.findById(id) != null) {
                 System.out.println("Заявка удалена");
             } else {
                 System.out.println("Заявка не удалена");
