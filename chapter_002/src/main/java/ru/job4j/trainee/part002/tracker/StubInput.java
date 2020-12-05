@@ -18,12 +18,6 @@ public class StubInput implements Input {
         return Integer.parseInt(askStr(question));
     }
 
-//    @Override
-//    public int askInt(String question, int max) {
-//        return askInt(question);
-//
-//    }
-
     @Override
     public int askInt(String question, int max) throws IllegalStateException {
         int select = askInt(question);
