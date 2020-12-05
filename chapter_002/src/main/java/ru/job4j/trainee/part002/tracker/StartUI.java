@@ -35,8 +35,7 @@ public class StartUI {
         userAction.add(new FindByNameItem());
         userAction.add(new ReplaceItem());
         userAction.add(new Exit());
-        try (Store tracker = new SqlTracker()) {
-            tracker.init();
+        try (Store tracker = new SqlTracker(TrackerInit.init())) {
             new StartUI().init(validate, tracker, userAction);
         } catch (Exception e) {
             e.printStackTrace();
