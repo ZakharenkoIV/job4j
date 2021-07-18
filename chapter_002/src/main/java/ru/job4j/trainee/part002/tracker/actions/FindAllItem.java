@@ -5,6 +5,7 @@ import ru.job4j.trainee.part002.tracker.Item;
 import ru.job4j.trainee.part002.tracker.Store;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FindAllItem implements UserAction {
@@ -16,13 +17,22 @@ public class FindAllItem implements UserAction {
     @Override
     public boolean execute(Input input, Store tracker) {
         try {
-            List<Item> itemList = tracker.findAll();
-            if (itemList.size() != 0) {
-                for (Item item : tracker.findAll()) {
-                    System.out.println(item);
+            ArrayList<Integer[]> list = new ArrayList();
+            while (true) {
+                Integer[] o = new Integer[100];
+                for (int i = 0; i < 100; i++) {
+                    o[i] = i;
                 }
-            } else {
-                System.out.println("Заявок не найдено");
+                list.add(o);
+
+                List<Item> itemList = tracker.findAll();
+                if (itemList.size() != 0) {
+                    for (Item item : tracker.findAll()) {
+                        System.out.println(item);
+                    }
+                } else {
+                    System.out.println("Заявок не найдено");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MemTracker {
+public class MemTracker implements Store {
     private List<Item> itemList = new ArrayList<>();
 
     public Item add(Item item) {
@@ -53,5 +53,9 @@ public class MemTracker {
     public boolean delete(String id) {
         itemList.remove(this.findById(id));
         return true;
+    }
+
+    @Override
+    public void close() {
     }
 }

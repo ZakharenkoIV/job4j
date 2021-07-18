@@ -1,5 +1,7 @@
 package ru.job4j.trainee.part002.tracker;
 
+import java.util.Arrays;
+
 public class StubInput implements Input {
     private String[] answers;
     private int position = 0;
@@ -26,6 +28,11 @@ public class StubInput implements Input {
 
         }
         return select;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(answers);
     }
 }
 
