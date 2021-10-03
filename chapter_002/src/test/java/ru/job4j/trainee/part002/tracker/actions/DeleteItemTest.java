@@ -28,7 +28,7 @@ public class DeleteItemTest {
         System.setOut(new PrintStream(out));
 
         Store tracker = new MemTracker();
-        String id = tracker.add(new Item("Удаляемая заявка")).getId();
+        int id = tracker.add(new Item("Удаляемая заявка")).getId();
         DeleteItem del = new DeleteItem();
 
         Input input = mock(Input.class);

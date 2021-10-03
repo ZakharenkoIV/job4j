@@ -42,7 +42,7 @@ public class FindByNameItemTest {
         System.setOut(new PrintStream(out));
 
         Store tracker = new MemTracker();
-        String id = tracker.add(new Item("Искомая заявка")).getId();
+        int id = tracker.add(new Item("Искомая заявка")).getId();
         FindByNameItem fName = new FindByNameItem();
 
         Input input = mock(Input.class);

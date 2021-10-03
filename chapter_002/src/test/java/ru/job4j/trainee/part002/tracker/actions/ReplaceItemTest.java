@@ -27,7 +27,7 @@ public class ReplaceItemTest {
         System.setOut(new PrintStream(out));
 
         Store tracker = new MemTracker();
-        String id = tracker.add(new Item("Заменяемая заявка")).getId();
+        int id = tracker.add(new Item("Заменяемая заявка")).getId();
         String replacedName = "Новое имя заявки";
         ReplaceItem rep = new ReplaceItem();
 

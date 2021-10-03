@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MemTracker implements Store {
-    private List<Item> itemList = new ArrayList<>();
+    private final List<Item> itemList = new ArrayList<>();
 
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -13,8 +13,8 @@ public class MemTracker implements Store {
         return item;
     }
 
-    private String generateId() {
-        return String.valueOf(new Random().nextLong() + System.currentTimeMillis());
+    private int generateId() {
+        return new Random().nextInt() + (int) System.currentTimeMillis();
     }
 
     public List<Item> findAll() {
@@ -31,10 +31,10 @@ public class MemTracker implements Store {
         return foundItems;
     }
 
-    public Item findById(String id) {
+    public Item findById(int id) {
         Item foundItem = null;
         for (Item item : itemList) {
-            if (item.getId().equals(id)) {
+            if (item.getId() == id) {
                 foundItem = item;
                 break;
             }
@@ -42,7 +42,7 @@ public class MemTracker implements Store {
         return foundItem;
     }
 
-    public boolean replace(String id, Item item) {
+    public boolean replace(int id, Item item) {
         item.setId(id);
         int index = itemList.indexOf(this.findById(id));
         itemList.remove(index);
@@ -50,7 +50,7 @@ public class MemTracker implements Store {
         return true;
     }
 
-    public boolean delete(String id) {
+    public boolean delete(int id) {
         itemList.remove(this.findById(id));
         return true;
     }

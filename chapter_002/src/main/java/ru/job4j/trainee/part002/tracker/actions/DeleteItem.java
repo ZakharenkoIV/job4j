@@ -14,7 +14,7 @@ public class DeleteItem implements UserAction {
 
     @Override
     public boolean execute(Input input, Store tracker) {
-        String id = input.askStr("Введите ID заявки : ");
+        int id = input.askInt("Введите ID заявки : ");
         Item item;
         try {
             item = tracker.findById(id);

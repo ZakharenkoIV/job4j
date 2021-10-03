@@ -27,7 +27,7 @@ public class FindByIdItemTest {
         System.setOut(new PrintStream(out));
 
         Store tracker = new MemTracker();
-        String id = tracker.add(new Item("Искомая заявка")).getId();
+        int id = tracker.add(new Item("Искомая заявка")).getId();
         FindByIdItem fId = new FindByIdItem();
 
         Input input = mock(Input.class);
