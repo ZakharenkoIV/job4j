@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -64,12 +65,15 @@ public class TrackerSQLTest {
     @Test
     public void findAllItems() {
         try (SqlTracker tracker = new SqlTracker(ConnectionRollback.create(this.init()))) {
-            List<Item> allItems = tracker.findAll();
+            List<Item> expected = tracker.findAll();
             Item item1 = tracker.add(new Item("name"));
             Item item2 = tracker.add(new Item("test"));
-            allItems.add(item1);
-            allItems.add(item2);
-            assertThat(tracker.findAll(), is(allItems));
+            expected.add(item1);
+            expected.add(item2);
+            List<Item> actual = tracker.findAll();
+            Collections.sort(expected);
+            Collections.sort(actual);
+            assertThat(actual, is(expected));
         } catch (Exception e) {
             e.printStackTrace();
         }

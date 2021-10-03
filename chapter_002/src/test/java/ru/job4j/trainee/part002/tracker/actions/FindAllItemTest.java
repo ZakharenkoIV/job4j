@@ -27,7 +27,7 @@ public class FindAllItemTest {
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("\n" + "Имя заявки:" + " " + item.getName() + "\n")
                 .toString();
-        assertThat(new String(out.toByteArray()), is(expect));
+        assertThat(out.toString(), is(expect));
         System.setOut(def);
     }
 }
