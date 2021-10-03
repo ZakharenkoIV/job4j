@@ -14,7 +14,7 @@ public class FindByIdItem implements UserAction {
 
     @Override
     public boolean execute(Input input, Store tracker) {
-        String id = input.askStr("Введите ID заявки : ");
+        int id = input.askInt("Введите ID заявки : ");
         try {
             Item item = tracker.findById(id);
             if (item == null) {
