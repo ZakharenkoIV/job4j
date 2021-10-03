@@ -33,7 +33,7 @@ public class DeleteItemTest {
 
         Input input = mock(Input.class);
 
-        when(input.askStr(any(String.class)))
+        when(input.askInt(any(String.class)))
                 .thenAnswer((Answer) invocation -> {
                     System.out.println(invocation.getArguments()[0]);
                     return id;
