@@ -12,21 +12,18 @@ public class Item implements Comparable<Item> {
     private int id;
     private String name;
     private String description;
-    private final Timestamp created;
+    private final Timestamp created = new Timestamp(System.currentTimeMillis());
 
     public Item() {
-        created = new Timestamp(System.currentTimeMillis());
     }
 
     public Item(String name) {
         this.name = name;
-        created = new Timestamp(System.currentTimeMillis());
     }
 
     public Item(String name, String description) {
         this.name = name;
         this.description = description;
-        created = new Timestamp(System.currentTimeMillis());
     }
 
     public String getDescription() {
