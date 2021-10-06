@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -32,12 +31,16 @@ public class HbmTracker implements Store, AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
 
-        item.setId(id);
-        session.update(item);
+        int result = session.createQuery("update Item SET name = :name, description = :description "
+                + "where id = :id")
+                .setParameter("name", item.getName())
+                .setParameter("description", item.getDescription())
+                .setParameter("id", id)
+                .executeUpdate();
 
         session.getTransaction().commit();
         session.close();
-        return findById(id).getName().equals(item.getName());
+        return result > 0;
     }
 
     @Override
@@ -45,13 +48,11 @@ public class HbmTracker implements Store, AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
 
-        Item item = new Item();
-        item.setId(id);
-        session.delete(item);
+        session.delete(session.get(Item.class, id));
 
         session.getTransaction().commit();
         session.close();
-        return findById(id) != null;
+        return findById(id) == null;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class HbmTracker implements Store, AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
 
-        List result = session.createQuery("from ru.job4j.trainee.part002.tracker.Item").list();
+        List result = session.createQuery("from Item").list();
 
         session.getTransaction().commit();
         session.close();
@@ -67,14 +68,12 @@ public class HbmTracker implements Store, AutoCloseable {
     }
 
     @Override
-    public List<Item> findByName(String key) {
+    public List<Item> findByName(String name) {
         Session session = sf.openSession();
         session.beginTransaction();
 
-        String queryString = "from Item where name = :value";
-        Query query = session.createQuery(queryString);
-        query.setParameter("value", key);
-        List<Item> list = query.list();
+        List list = session.createQuery("from Item where name = :name")
+                .setParameter("name", name).list();
 
         session.getTransaction().commit();
         session.close();
