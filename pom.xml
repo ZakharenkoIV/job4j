@@ -48,6 +48,12 @@
             <version>3.5.13</version>
             <scope>test</scope>
         </dependency> <!--mockito-core 3.5.13-->
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.5.1</version>
+            <scope>test</scope> <!--hsqldb 2.5.1-->
+        </dependency>
     </dependencies>
 
     <build>
