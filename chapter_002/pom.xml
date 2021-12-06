@@ -15,35 +15,13 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>tracker002</finalName>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ru.job4j.trainee.part002.memTracker.StartUI</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
                     <source>10</source>
                     <target>10</target>
                 </configuration>
-            </plugin>
+            </plugin> <!--maven-compiler-plugin 3.1-->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
@@ -54,24 +32,40 @@
                     <driver>${db.driver}</driver>
                     <username>${db.username}</username>
                     <password>${db.password}</password>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                 </configuration>
                 <executions>
                     <execution>
                         <phase>process-resources</phase>
                         <goals>
+                            <goal>clearCheckSums</goal>
                             <goal>update</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> <!--liquibase-maven-plugin 3.6.2-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>tracker</finalName>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>ru.job4j.trainee.part002.tracker.StartUI</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> <!--maven-shade-plugin 3.0.0-->
         </plugins>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 </project>

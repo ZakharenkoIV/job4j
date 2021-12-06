@@ -1,6 +1,6 @@
-create table items
+create table if not exists items
 (
-    id   integer primary key not null,
-    name varchar(2000),
-    "end_unix-time_of_work" integer primary key not null
+    id      serial primary key,
+    name    text,
+    created timestamp
 );
