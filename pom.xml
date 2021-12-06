@@ -31,7 +31,7 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-        </profile> <!--test-->
+        </profile>  <!--test-->
         <profile>
             <id>production</id>
             <properties>
