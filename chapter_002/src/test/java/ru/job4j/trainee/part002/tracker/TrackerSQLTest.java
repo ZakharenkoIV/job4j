@@ -42,12 +42,12 @@ public class TrackerSQLTest {
         connection.close();
     }
 
-//    @After
-//    public void wipeTable() throws SQLException {
-//        try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
-//            statement.execute();
-//        }
-//    }
+    @After
+    public void wipeTable() throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement("delete from items")) {
+            statement.execute();
+        }
+    }
 
     @Test
     public void addItem() {
