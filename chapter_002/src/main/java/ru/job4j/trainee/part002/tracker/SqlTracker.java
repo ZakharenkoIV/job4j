@@ -21,7 +21,7 @@ public class SqlTracker implements Store {
     @Override
     public Item add(Item item) {
         try (PreparedStatement ps = con.prepareStatement(
-                "Insert into tracker.public.items(name) values (?)", Statement.RETURN_GENERATED_KEYS)) {
+                "Insert into items(name) values (?)", Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, item.getName());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -37,7 +37,7 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(int id, Item item) {
         int processedLines = 0;
-        try (PreparedStatement ps = con.prepareStatement("update tracker.public.items set name = (?) where id = (?)")) {
+        try (PreparedStatement ps = con.prepareStatement("update items set name = (?) where id = (?)")) {
             ps.setString(1, item.getName());
             ps.setInt(2, id);
             processedLines = ps.executeUpdate();
@@ -50,7 +50,7 @@ public class SqlTracker implements Store {
     @Override
     public boolean delete(int id) {
         int processedLines = 0;
-        try (PreparedStatement ps = con.prepareStatement("delete from tracker.public.items where id = (?)")) {
+        try (PreparedStatement ps = con.prepareStatement("delete from items where id = (?)")) {
             ps.setInt(1, id);
             processedLines = ps.executeUpdate();
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findAll() {
         List<Item> items = new ArrayList<>();
-        try (PreparedStatement ps = con.prepareStatement("select * FROM tracker.public.items")) {
+        try (PreparedStatement ps = con.prepareStatement("select * FROM items")) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Item item = new Item(rs.getString("name"));
@@ -78,7 +78,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String name) {
         List<Item> items = new ArrayList<>();
-        try (PreparedStatement ps = con.prepareStatement("select * FROM tracker.public.items where name = (?)")) {
+        try (PreparedStatement ps = con.prepareStatement("select * FROM items where name = (?)")) {
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -95,7 +95,7 @@ public class SqlTracker implements Store {
     @Override
     public Item findById(int id) {
         Item item = new Item("");
-        try (PreparedStatement ps = con.prepareStatement("select * FROM tracker.public.items where id = (?)")) {
+        try (PreparedStatement ps = con.prepareStatement("select * FROM items where id = (?)")) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs != null && rs.next()) {
