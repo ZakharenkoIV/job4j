@@ -3,6 +3,7 @@ package ru.job4j.trainee.part002.tracker;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class SqlTracker implements Store {
     private final Connection con;
@@ -73,6 +74,19 @@ public class SqlTracker implements Store {
             e.printStackTrace();
         }
         return items;
+    }
+
+    public void findAllByReact(Consumer<Item> consumer) {
+        try (PreparedStatement ps = con.prepareStatement("select * FROM items")) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Item item = new Item(rs.getString("name"));
+                item.setId(rs.getInt("id"));
+                consumer.accept(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
